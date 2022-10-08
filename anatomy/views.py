@@ -38,6 +38,6 @@ class summary_overview_detail(generics.RetrieveUpdateAPIView):
 
 class StartQuiz(APIView):
     def get(self, request, format=None, **kwargs):
-        question = Ana_Question.objects.filter(chapter__id = kwargs['pk'])
+        question = Ana_Question.objects.filter(chapter__id = kwargs['pk']).order_by('?')[:100]
         serializer = QuizSerializer(question, many=True)
         return Response(serializer.data)
