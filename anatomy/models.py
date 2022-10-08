@@ -30,6 +30,7 @@ class Ana_Quiz(models.Model):
         return self.title
 
 class Ana_Question(models.Model):
+    chapter = models.ForeignKey(Course_List, on_delete=models.CASCADE, related_name='chapter')
     quiz = models.ForeignKey(Ana_Quiz, related_name='question', on_delete=models.CASCADE)
     question = models.TextField()
 

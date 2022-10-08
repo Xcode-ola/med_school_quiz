@@ -7,12 +7,17 @@ class HomePageSerializer(serializers.ModelSerializer):
         view_name='summary',
         lookup_field = 'pk',
     )
+    quiz = serializers.HyperlinkedIdentityField(
+        view_name='quiz',
+        lookup_field = 'pk',
+    )
     class Meta:
         model = Course_List
         fields = [
             'id',
             'name',
             'summary',
+            'quiz',
         ]
 
 class ChapterSerializer(serializers.Serializer):

@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from .models import Course_List, Course_Summary, Ana_Answer, Ana_Question, Ana_Quiz
-from .serializer import HomePageSerializer, SummaryPageSerializer, SummaryOverviewSerializer
+from .serializer import HomePageSerializer, QuizSerializer, SummaryPageSerializer, SummaryOverviewSerializer
 from rest_framework import generics, permissions, authentication
 from .permissions import IsStaffEditorPermissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 # Create your views here.
 class index(generics.ListAPIView):
@@ -34,4 +36,8 @@ class summary_overview_detail(generics.RetrieveUpdateAPIView):
     permission_classes = [permissions.IsAdminUser, IsStaffEditorPermissions]
     lookup_field = 'pk'
 
-    
+class StartQuiz(APIView):
+    def get(self, request, format=None, **kwargs):
+        question = Ana_Question.objects.filter(chapter__id = kwargs['pk'])
+        serializer = QuizSerializer(question, many=True)
+        return Response(serializer.data)
