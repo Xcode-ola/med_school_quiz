@@ -49,3 +49,6 @@ class Ana_Answer(models.Model):
     class Meta:
         verbose_name = 'Anatomy Answer'
         verbose_name_plural = 'Anatomy Answers'
+
+    def __str__(self):
+        return self.choice

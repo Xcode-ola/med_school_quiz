@@ -37,6 +37,7 @@ class summary_overview_detail(generics.RetrieveUpdateAPIView):
     lookup_field = 'pk'
 
 class StartQuiz(APIView):
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request, format=None, **kwargs):
         question = Ana_Question.objects.filter(chapter__id = kwargs['pk']).order_by('?')[:100]
         serializer = QuizSerializer(question, many=True)
